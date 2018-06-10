@@ -28,13 +28,7 @@ from nltk.corpus import sentiwordnet as swn
 import json
 config = json.load(open('../../../config.json'))
 
-rx = re.compile('(["#\'\\%`])')
-tb = Blobber(pos_tagger=NLTKTagger(), analyzer=NaiveBayesAnalyzer())
-
-
-
-
-#data = handle_file('/media/salah/e58c5812-2860-4033-90c6-83b7ffaa8b88/MLStock/dataset/Layer2_dataset/Model1/Method1/Method1_base_dataset.csv','r')
+# rx = re.compile('(["#\'\\%`])')
 
 data_pd = pd.read_csv('/media/salah/e58c5812-2860-4033-90c6-83b7ffaa8b88/MLStock/dataset/Layer2_dataset/Model1/Method1/Method1_base_dataset.csv')
 
@@ -57,5 +51,3 @@ data_pd_2 = data_pd.drop(data_pd.index[ remove_list ])
 
 # Write the dataset
 data_pd_2.to_csv('/media/salah/e58c5812-2860-4033-90c6-83b7ffaa8b88/MLStock/dataset/Layer2_dataset/Model1/Method4/Method4_base_dataset.csv',index=False)
-
-# [key for key in count_dict.keys() if count_dict[key] >= 100]

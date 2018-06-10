@@ -3,13 +3,6 @@
 
 # # Predicting the Dow Jones with News
 
-# The goal of this project is to use the top, daily news headlines from Reddit to predict the movement of the Dow Jones Industrial Average. The data for this project spans from 2008-08-08 to 2016-07-01, and is from this [Kaggle dataset](https://www.kaggle.com/aaron7sun/stocknews). 
-# 
-# The news from a given day will be used to predict the difference in opening price between that day, and the following day. This method is chosen because it should allow all of the day's news to be incorporated into the price compared to closing price, which could only incorporate the day's morning and afternoon news.
-# 
-# For this project, we will use GloVe to create our word embeddings and CNNs followed by LSTMs to build our model. This model is based off the work done in this paper https://www.aclweb.org/anthology/C/C16/C16-1229.pdf.
-
-# In[333]:
 
 import pandas as pd
 import numpy as np
@@ -32,90 +25,54 @@ from keras.optimizers import Adam, SGD, RMSprop
 from keras import regularizers
 
 
-# In[268]:
-
 dj = pd.read_csv("/home/salah/school/Capston/NEWS_base_models/dataset/news/DJIA_table.csv")
 
 
 news = pd.read_csv("/home/salah/school/Capston/NEWS_base_models/dataset/news/RedditNews.csv")
 
 
-# ## Inspect the data
-
-# In[269]:
+# Inspect the data
 
 dj.head()
 
-
-# In[270]:
-
 dj.isnull().sum()
 
-
-# In[271]:
-
 news.isnull().sum()
-
-
-# In[272]:
 
 news.head()
 
 
-# In[273]:
-
 print(dj.shape)
 print(news.shape)
-
-
-# In[274]:
 
 # Compare the number of unique dates. We want matching values.
 print(len(set(dj.Date)))
 print(len(set(news.Date)))
 
-
-# In[275]:
-
 # Remove the extra dates that are in news
 news = news[news.Date.isin(dj.Date)]
-
-
-# In[276]:
 
 print(len(set(dj.Date)))
 print(len(set(news.Date)))
 
 
-# In[283]:
-
 # Calculate the difference in opening prices between the following and current day.
 # The model will try to predict how much the Open value will change beased on the news.
+
 dj = dj.set_index('Date').diff(periods=1)
 dj['Date'] = dj.index
 dj = dj.reset_index(drop=True)
+
 # Remove unneeded features
 dj = dj.drop(['High','Low','Close','Volume','Adj Close'], 1)
 
-
-
-# In[284]:
-
 dj.head()
-
-
-# In[285]:
 
 # Remove top row since it has a null value.
 dj = dj[dj.Open.notnull()]
 
-
-# In[286]:
-
 # Check if there are any more null values.
 dj.isnull().sum()
-
-# In[287]:
 
 # Create a list of the opening prices and their corresponding daily headlines from the news
 price = []
@@ -168,10 +125,6 @@ for i,item in enumerate(price):
             price_status.append('SAME')
 
 
-
-
-# In[288]:
-
 # Compare lengths to ensure they are the same
 del price[0] # Remove the first row since we only use that to find wither the stock raise or fall.... As it is the first date we have in our dataset
 print(len(price))
@@ -179,17 +132,11 @@ print(len(price_status))
 print(len(headlines))
 
 
-
-
-# In[289]:
-
 # Compare the number of headlines for each day
 print(max(len(i) for i in headlines))
 print(min(len(i) for i in headlines))
 #print(np.mean(len(i) for i in headlines))
 
-
-# In[290]:
 
 # A list of contractions from http://stackoverflow.com/questions/19790188/expanding-english-language-contractions-in-python
 contractions = { 
@@ -269,8 +216,6 @@ contractions = {
 }
 
 
-# In[291]:
-
 def clean_text(text, remove_stopwords = True):
     '''Remove unwanted characters and format the text to create fewer nulls word embeddings'''
     # Convert words to lower case
@@ -308,8 +253,6 @@ def clean_text(text, remove_stopwords = True):
     return text
 
 
-# In[292]:
-
 # Clean the headlines
 clean_headlines = []
 
@@ -319,8 +262,6 @@ for daily_headlines in headlines:
         clean_daily_headlines.append(clean_text(headline))
     clean_headlines.append(clean_daily_headlines)
 
-
-# In[293]:
 
 # Take a look at some headlines to ensure everything was cleaned well
 # clean_headlines[0]
@@ -338,19 +279,6 @@ final_pd = pd.DataFrame(all_data)
 
 
 final_pd.to_csv('/media/salah/e58c5812-2860-4033-90c6-83b7ffaa8b88/MLStock/dataset/Layer1_dataset/Model2/Layer1_base_dataset.csv', index=False)
-
-# all_data = []
-# for i,item in enumerate( clean_headlines):
-#     news_tmp = ' ## '.join(clean_headlines[i])
-#     price_tmp = price[i]
-#     status_tmp = price_status[i]
-#     all_data.append([ news_tmp, price_tmp, status_tmp] )
-
-# def write_dataset(row_data, filename ):
-#     with open(filename,"w") as f:
-#         for item in row_data:
-#             f.write("%s\n"% ','.join( str(v) for v in item))
-
 
 
 ################################################# End of preparation

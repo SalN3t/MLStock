@@ -16,7 +16,6 @@ data = pd.read_csv('/media/salah/e58c5812-2860-4033-90c6-83b7ffaa8b88/MLStock/da
 # Keeping only the neccessary columns
 data = data[['headline','status']]
 
-#data = data[data.sentiment != "Neutral"]
 data['headline'] = data['headline'].apply(lambda x: str(x).lower().replace(' ## ',''))
 data['headline'] = data['headline'].apply((lambda x: re.sub(r'[^a-zA-z0-9\s]','',str(x))))
 
@@ -80,6 +79,7 @@ for x in range(len(X_validate)):
         neg_cnt += 1
     else:
         pos_cnt += 1
+        
 # Predicting the whole test set
 ypred = model.predict(X_test)
 print("F1-Measure",f1_score(Y_test, ypred.round(), average='weighted')  )

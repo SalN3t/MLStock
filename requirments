@@ -2,3 +2,10 @@ nltk
 textblob
 pickle
 glob
+keras
+json
+sklearn
+numpy
+pandas
+tqdm
+csv

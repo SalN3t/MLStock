@@ -1,11 +1,9 @@
 try:
     from utility import *
-    #print '1'
 except:
     import os,sys
     sys.path.insert(0,os.path.dirname( os.path.dirname(os.getcwd() ) ) )
     from utility import *
-    #print '2'
 
 import re
 import string
@@ -129,11 +127,9 @@ def remove_urls(tweets):
                 text_to_remove.append(text)
             else:
                 second_search = False
-        #print text_to_remove
         for remove in text_to_remove:
             tweets = tweets.replace(remove, ' ')
         return tweets
-        # return remove_by_regex(tweets,r"http.?://[^\s]+[\s]?")
 
 
 def remove_usernames(tweets):
@@ -143,12 +139,6 @@ def remove_usernames(tweets):
 def remove_numbers(tweets):
     return remove_by_regex(tweets,r"\s?[0-9]+\.?[0-9]*")
 
-#remove_special_chars(remove_urls(text_list[18]))
-
-# Remove non ascii characters
-# import string
-# printable = set(string.printable)
-# filter(lambda x: x in printable, s)
 def remove_non_ascii_char(line):
     return filter(lambda x: x in set(string.printable), line)
 
@@ -164,16 +154,6 @@ def correct_tweets_dataset(tweets_data,stocks_d, header = 'username;date;retweet
             text = item.split(";")[4]
         except:
             item = item.replace(",",";") # Correcting
-            # text = item.split(";")[4]
-            # if text.count('"') < 2:
-            # index = 5
-            # search_range = item.split(";")
-            # for i in xrange(len(search_range)):
-            #     if search_range[index].count('"') > 0:
-            #         break
-            #     index = index +1
-            # replaced_text = ','.join(search_range[4:index+1]) # +1 to inlcude the last element
-            #search_range = item.split(";")
         search_range = item.split(";")
         replaced_text = ', '.join(search_range[4:-5])
         del search_range[4:-5]
@@ -190,8 +170,6 @@ def correct_tweets_dataset(tweets_data,stocks_d, header = 'username;date;retweet
     return new_dataset
 
  # --- Text Preparation functions Start
-
-
 
 def read_stocks_date_from_files_list(files_list):
     stock_date_dict = dict()
@@ -310,29 +288,7 @@ def helper_get_stock_data(stock_date_dict, stock, search_index_date):
     return data_dic
 
     # --- Text Preparation functions end
-# def write_dataset(new_dataset, filename = "simple_sentence_twitter_dataset_2008_to_2014"):
-#     # write the data
-#     with open(filename,"w") as f:
-#         for item in new_dataset:
-#             if not item.split(";")[10] == '':   # Take of rows that stock mentioned is not detected .. those could be cuase of irregular formatting or string encoding
-#                 f.write("%s\n"%item.replace("\n",""))
 
-
-# # data = list()
-# # for item in rows:
-# # 	oo = ''
-# # 	for key in item.keys():
-# # 			oo = str(item[key].encode('ascii', 'replace') ).replace(',',';') + ',' + oo
-# # 	data.append(oo[:-1])
-
-# def write_file(data, filename):
-#     with open(filename, "w") as f:
-#             for item in data:
-#                 f.write(item.replace('#','').replace("'","")+"\n")
-
-# if __name__ == '__main__':
-# Load the configuration data
-# Note that we can pass them righ away.. but this is to make the code more readable
 stocks_symbols_file = config['stocks_symbols_file']
 twitter_dataset_directory = config['twitter_dataset_directory']
 output_dataset_filename = config['cleanup']['output_dataset_filename']
@@ -391,8 +347,6 @@ stock_date_dict = read_stocks_date_from_files_list(stocks_dir)
 new_list = from_dataframe_to_dict_list(reduced_data, stocks_d)
 
 # ==== 
-#appl_s[ appl_s['Date'] == '1984-09-100'].empty
-# # stock_date_dict[stock]['Close']
 
 # Update the rows with their stocks price for that targetd stock
 for i,item in  enumerate( tqdm(new_list) ):

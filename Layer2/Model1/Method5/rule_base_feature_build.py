@@ -48,24 +48,11 @@ def from_text_to_words_list_panda(data_pd, term, text_index = 'reduced_text', st
 
 def intersection(lst1, lst2):
     return list(set(lst1) & set(lst2))
- 
-# def get_words_in_tweets(tweets):
-#     all = []
-#     for (words, sentiment) in tweets:
-#         all.extend(words)
-#     return all
 
 def get_word_features(wordlist, top_level = -1):
     wordlist = nltk.FreqDist(wordlist)
     features = sorted(wordlist.items(), key=operator.itemgetter(1), reverse=True)[:top_level] # will return tuple (word, frequency)
     return [ feature[0] for feature in features]
-
-# def extract_features(document):
-#     document_words = set(document)
-#     features = {}
-#     for word in w_features:
-#         features['containts(%s)' % word] = (word in document_words)
-#     return features
 
 def wordcloud_draw(data, color = 'black', image_name = 'Figure.jpg'):
     words = ' '.join(data)
@@ -86,7 +73,6 @@ def wordcloud_draw(data, color = 'black', image_name = 'Figure.jpg'):
     plt.axis('off')
     plt.show()
     fig1.savefig(image_name)
-    # fig1.savefig(image_name,dpi=100)
 
 
 def add_to_dict(root_dicts, key, level):
@@ -98,7 +84,6 @@ def add_to_dict(root_dicts, key, level):
 
 def get_all_hypernyms(root_dicts,word):
     w = Word(word)
-    #root_dicts = dict()
     output_list = list()
     reach_root = False
     for syns in w.synsets:
@@ -107,10 +92,8 @@ def get_all_hypernyms(root_dicts,word):
         while reach_root == False:
             try:
                 if i == 0:
-		            #output_list.append(syns.hypernyms()[0])
                     add_to_dict(root_dicts, syns.hypernyms()[0], i)
                 elif i == 1:
-		            #output_list.append(syns.hypernyms()[0].hypernyms()[0])
                     add_to_dict(root_dicts, syns.hypernyms()[0].hypernyms()[0], i )
                 elif i == 2:
                     add_to_dict(root_dicts, syns.hypernyms()[0].hypernyms()[0].hypernyms()[0], i  )
@@ -127,10 +110,6 @@ def get_all_hypernyms(root_dicts,word):
                 i = i + 1
             except:
                     reach_root = True
-
-
-# data = handle_file('/home/salah/school/Capston/gitlab_data/MLsTock/datasets/finished_dataset/Dataset_final_stock_5_7_18_mod_w_sent_reduced.csv','r')
-# r_data = [( item.split(',')[0],item.split(',')[1])  for item in data]
 
 # ------------------------------------ Base Data Processing
 # Because we only need the combined text and the stock status of wither it raise or fall we can use one of the datasets form the older methods 
@@ -189,22 +168,3 @@ neg_hypernms_sorted_list = sorted(neg_hypernms_dict.iteritems(), key=lambda (k,v
 # Write to file
 write_file(pos_hypernms_sorted_list, filename = 'random_output_data/pos_hypernms_frequency_features.txt')
 write_file(neg_hypernms_sorted_list, filename = 'random_output_data/neg_hypernms_frequency_features.txt')
-
-# ===========================
-# # Find Hypernms features to pick from
-
-# # Find Words Feature to pick from
-# train_pos = from_text_to_words_list(r_data, 'RAISE')
-# train_neg = from_text_to_words_list(r_data, 'FALL')
-# in_words = intersection(train_pos, train_neg)
-
-# # Remove all the words that both sets shares and keep only the unique ones for that set
-# train_pos = [word for word in train_pos if not word in in_words]
-# train_neg = [word for word in train_neg if not word in in_words]
-
-# wordcloud_draw ( get_word_features(train_pos, top_level = 20000), 'white' )
-# wordcloud_draw ( get_word_features(train_neg, top_level = 20000) )
-
-# # w_features = get_word_features(get_words_in_tweets(train), top_level = 20000 )
-
-# # Find Hypernms features to pick from

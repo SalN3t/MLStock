@@ -2,10 +2,10 @@
     "data_collect": {
         "period": { "period_range": 1, "period_by_day": true, "period_by_month": false, "period_by_year": false },
         "range": { "start_date": "2008-12-01", "end_date": "2015-01-01" },
-        "output_datasets": { "output_directory": "/home/salah/school/Capston/gitlab_data/MLsTock/datasets/twitter_datasets/", "filename_slug": "TwiSent", "filename_datetime_format": "%Y-%m-%d" },
+        "output_datasets": { "output_directory": "/media/salah/e58c5812-2860-4033-90c6-83b7ffaa8b88/MLStock/dataset/Layer0_dataset/Model1/twitter_datasets/", "filename_slug": "TwiSent", "filename_datetime_format": "%Y-%m-%d" },
         "maxtweets_per_query": 100,
         "scrapper_millisecond_throttle": { "year": { "from": 60, "to": 100 }, "month": { "from": 5, "to": 60 }, "day": { "from": 20, "to": 100 } },
-        "stocks_symbols_file": "/home/salah/school/Capston/datasets/Stock_dataset/stocks_symbols.txt",
+        "stocks_symbols_file": "/media/salah/e58c5812-2860-4033-90c6-83b7ffaa8b88/MLStock/stocks_symbols.txt",
         "allow_dataset_overwrite": false
     },
     "cleanup": {
@@ -18,10 +18,9 @@
         "output_dataset_filename_arff": "/home/salah/school/Capston/gitlab_data/MLsTock/datasets/finished_dataset/Dataset_five_day_stock_period.arff",
         "period": 5
     },
-    "stocks_symbols_file": "/home/salah/school/Capston/datasets/Stock_dataset/stocks_symbols.txt",
-    "stocks_fullname_file": "/home/salah/school/Capston/gitlab_data/MLsTock/datasets/Stock_dataset/stocks_full_name.txt",
-    "twitter_dataset_directory": "/home/salah/school/Capston/gitlab_data/MLsTock/datasets/twitter_datasets/",
-    "stocks_dataset_directory": "/home/salah/school/Capston/datasets/Stock_dataset/Stocks/",
+    "stocks_symbols_file": "/media/salah/e58c5812-2860-4033-90c6-83b7ffaa8b88/MLStock/stocks_symbols.txt",
+    "stocks_fullname_file": "/media/salah/e58c5812-2860-4033-90c6-83b7ffaa8b88/MLStock/stocks_full_name.txt",
+    "twitter_dataset_directory": "/media/salah/e58c5812-2860-4033-90c6-83b7ffaa8b88/MLStock/dataset/Layer0_dataset/Model1/twitter_datasets/",
+    "stocks_dataset_directory": "/media/salah/e58c5812-2860-4033-90c6-83b7ffaa8b88/MLStock/dataset/Layer0_dataset/Model1/Stock_dataset/Stocks/",
     "stocks_dataset_suffex": ".txt"
-
 }

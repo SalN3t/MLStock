@@ -28,7 +28,6 @@ from nltk.corpus import sentiwordnet as swn
 import json
 config = json.load(open('../../../config.json'))
 
-rx = re.compile('(["#\'\\%`])')
 tb = Blobber(pos_tagger=NLTKTagger(), analyzer=NaiveBayesAnalyzer())
 
 ## Functions
@@ -47,7 +46,6 @@ def sent_from_text(text):
             tmp_neg_score = tmp_neg_score +  item.neg_score()
             pos_sum = pos_sum + item.pos_score()
             neg_sum = neg_sum + item.neg_score()
-        #print 'pos: '+str(tmp_pos_score)+' neg: '+str(   tmp_neg_score )
         if 'http' in word:
             web_mention = web_mention + 1
         if str(tmp_pos_score) > str(tmp_neg_score):
@@ -65,25 +63,6 @@ def stocks_name_dict(stocks_fullname):
         output_dict[key] = [ v.strip() for v in item]
     return output_dict
 
-def find_stocks_v2(words_list, stocks_fullname_dict):
-    stocks_list = list()
-    for word in words_list:
-        if not stocks_fullname_dict.has_key( str( word.replace('$','') ).lower() ):
-            stocks_list.append( word.lower() )
-    text = ' '.join( stocks_list )
-    for name in full_name_stocks_list:
-        #if name in text:
-        text = text.lower().replace(name.lower(), ' ')
-    # for key in stocks_fullname_dict.keys():
-    #     for name in stocks_fullname_dict[key]:
-    #         text = text.lower().replace(name.lower(), ' ')
-    stocks_list = filter(None, text.split(' '))
-    return stocks_list
-
-def remove_stocks_name_from_words_list_v2(words_list, stocks_fullname_dict):
-    return find_stocks_v2(words_list, stocks_fullname_dict)
-    #return filter(lambda a: not a.lower() in find_stocks_v2(words_list, stocks_fullname_dict),words_list)
-
 
 
 ## Process
@@ -99,14 +78,9 @@ output_dataset_filename = config['prepare']['output_dataset_filename']
 output_dataset_filename_arff = config['prepare']['output_dataset_filename_arff']
 period = config['prepare']['period']
 
-#np.where(new_pd['stock_close'] > new_pd['stock_previous_close'],'RAISE', np.where(new_pd['stock_close'] < new_pd['stock_previous_close'], 'FALL','SAME') )
-
 new_pd = pd.read_csv('/media/salah/e58c5812-2860-4033-90c6-83b7ffaa8b88/MLStock/dataset/Layer1_dataset/Model1/layer_0_dataset_delimiter_semicolon.csv', delimiter=';')
 
-#new_pd_2 = new_pd[ new_pd['stock_close'] != 'nan' ] # Remove the rows that we are not usefull and has nan for its features
 new_pd = new_pd[ new_pd['stock_open'].notnull() ] # Remove the rows that we are not usefull and has nan for its features
-
-
 
 # See NaN values by column, if the column is not important then we don't need to drop the full row
 new_pd.isnull().sum()
@@ -146,7 +120,8 @@ for i,item in tqdm(new_pd['text'].iteritems() ):
     mid_to_night.append(1 if tweeted_hour >= 12 and tweeted_hour < 21 else 0)
     night_to_late_night.append(1 if tweeted_hour >= 21 and tweeted_hour < 3 else 0)
 
-# To check that the times are correct i.e 1 should only by in one of the pins at a time
+# To check that the times are correct i.e 1 should only by in one of the pins at a time, uncomment the next section
+
 # for i in range(len(tweets_length)):
 #     if early_to_mid_day[i] == 1 and mid_to_night[i] == 1 and night_to_late_night[i] == 1:
 #             print '1: '+str(i)
@@ -267,49 +242,10 @@ final_pd['reduced_text'].replace(' ## ','',inplace=True)
 # Create features status 
 final_pd['buy_sell_status'] = np.where( final_pd['buy_count'] > final_pd['sell_count'],'buy', np.where(final_pd['buy_count'] < final_pd['sell_count'], 'sell','nothing')  )
 
-
-
 # Chose the features we want to use
 final_pd_2 = final_pd[['reduced_text','tweets_length','sell_count','buy_count','buy_sell_status','early_to_mid_day','mid_to_night','night_to_late_night','number_of_tweets_count','stock_name','stock_close','stock_previous_close', 'stock_status']]
-
-# final_pd_2['reduced_text'] = reduced_text
 
 # sort data by stock name to group them together
 final_pd_2 = final_pd_2.sort_values(by=['stock_name'])
 
-# Chose the first 10500 this is just to reduce the size  of the dataset for smaller memory machines to handle
-# final_pd_3 = final_pd_2.iloc[:10500]
-# final_pd_3.to_csv('/media/salah/e58c5812-2860-4033-90c6-83b7ffaa8b88/MLStock/dataset/Layer2_dataset/Model1/Method1/Method1_dataset.csv')
-
 final_pd_2.to_csv('/media/salah/e58c5812-2860-4033-90c6-83b7ffaa8b88/MLStock/dataset/Layer2_dataset/Model1/Method2/Method2_base_dataset.csv', index=False)
-# =================
-# pp_f['stock_date'][2]
-# '2009-08-10'
-# pp_f['stock_name'][2]
-# '$MSFT'
-# pp_f['stock'][2]
-# 'msft'
-# 'AMZN Ex Div Date Also See DIA EPI PBR UTX ~'
-
-
-# import matplotlib.pyplot as plt
-# import plotly.plotly as py
-
-# dictionary = plt.figure()
-
-# D = {u'Label0':26, u'Label1': 17, u'Label2':30}
-
-# plt.bar(range(len(stocks_dict)), stocks_dict.values(), align='center')
-# plt.yticks(range(len(stocks_dict)), stocks_dict.keys())
-
-# plot_url = py.plot_mpl(dictionary, filename='mpl-dictionary')
-
-####################################
-# ARFF - Attributes reduced        #
-####################################
-# import arff
-# data = arff.load(open('/media/salah/e58c5812-2860-4033-90c6-83b7ffaa8b88/MLStock/dataset/Layer2_dataset/Model1/Method2/Method2_base_dataset.arff','rb'))
-# data['attributes'][0] = (u'text','STRING')
-# with open('/media/salah/e58c5812-2860-4033-90c6-83b7ffaa8b88/MLStock/dataset/Layer2_dataset/Model1/Method2/Method2_base_dataset_2.arff','w') as f :
-#     f.write( arff.dumps(data) )
-####################################

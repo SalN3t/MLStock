@@ -1,0 +1,66 @@
+PTR,petrochina,petro china
+BCH,Banco de Chile
+SNP,Sinopec
+CEO,CNOOC Limited,CNOOC
+CHA,China Telecom
+TLK,Telekomnks Indn Prsr Tbk Prshn Prsrn-ADR,Telekomnks
+AMX,America Movil
+HSBC,HSBC Holdings
+CHL,China Mobile
+TSM,TSMC,Taiwan Semiconductor
+AAPL,Apple
+BP,BP
+MSFT,Microsoft
+SHI,Shanghai Petrochemical,Sinopec Shanghai Petrochemical,Sinopec Shanghai
+EC,Ecopetrol
+AMZN,Amazon
+RDS-A,Royal Dutch Shell, shell
+CEA,China Eastern Airlines,China Eastern
+BRK-A,Berkshire Hathaway,Berkshire
+BABA,Alibaba Group,Alibaba 
+FB,Facebook
+TM,Toyota
+JNJ,Johnson & Johnson,Johnson
+JPM,JPMorgan Chase
+HNP,Huaneng Power
+DEO,Diageo
+XOM,ExxonMobil
+FMX,FEMSA,fomento Economico Mexicano
+CHU,China Unicom
+GOOGL,Alphabet,google
+BAC,Bank of America
+WFC,Wells Fargo
+WMT,Walmart
+CHT,Chunghwa Telecom,Chunghwa
+ACH,Aluminum Corporation of China,Aluminum
+LYG,Lloyds Banking 
+T,AT&T
+CVX,Chevron
+GSH,Guangshen Railway
+PG,Procter & Gamble
+HD,Home Depot
+INTC,Intel
+VZ,Verizon
+PFE,Pfizer
+BUD,Anheuser-Busch InBev,InBev,ABInBev
+UNH,UnitedHealth
+V,Visa
+NGG,National Grid
+C,Citigroup
+ORCL,Oracle
+MMM,3M
+AXP,American Express
+BA,Boeing
+CAT,Caterpillar
+CSCO,Cisco Systems,Cisco
+KO,Coca-Cola,The Coca-Cola
+DIS,Walt Disney,the Walt Disney,Disney 
+DWDP,DowDuPont,Dow Chemical
+GE,General Electric
+GS,Goldman Sachs
+IBM,IBM
+MCD,McDonald's,McDonald
+MRK,Merck & Co,Merck
+NKE,Nike
+TRV,The Travelers,Travelers
+UTX,United Technologies

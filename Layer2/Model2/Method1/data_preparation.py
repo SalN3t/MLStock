@@ -10,7 +10,6 @@ from keras.models import Sequential
 from keras.layers import Dense, Embedding, LSTM, SpatialDropout1D
 from sklearn.model_selection import train_test_split
 from keras.utils.np_utils import to_categorical
-import re
 
 import re
 import string
@@ -35,7 +34,6 @@ from textblob.taggers import NLTKTagger
 
 # Load config
 import json
-#config = json.load(open('../config.json'))
 
 rx = re.compile('(["#\'\\%`])')
 tb = Blobber(pos_tagger=NLTKTagger(), analyzer=NaiveBayesAnalyzer())
@@ -45,7 +43,6 @@ data = pd.read_csv('/media/salah/e58c5812-2860-4033-90c6-83b7ffaa8b88/MLStock/da
 # Keeping only the neccessary columns
 
 data['headline'] = data['headline'].apply(lambda x: str(x).lower().replace(' ## ',''))
-
 
 from nltk.corpus import sentiwordnet as swn
 #result_reduce[1].split(',')[0]
@@ -64,7 +61,6 @@ def sent_from_text(text):
             tmp_neg_score = tmp_neg_score +  item.neg_score()
             pos_sum = pos_sum + item.pos_score()
             neg_sum = neg_sum + item.neg_score()
-        #print 'pos: '+str(tmp_pos_score)+' neg: '+str(   tmp_neg_score )
         if 'http' in word:
             web_mention = web_mention + 1
         if str(tmp_pos_score) > str(tmp_neg_score):
@@ -94,8 +90,6 @@ data['neg_count'] = neg_count
 
 data['sentiment_count_status'] = np.where( data['pos_count'] > data['neg_count'],'pos','neg'  )
 data['sentiment_sum_status'] = np.where( data['pos_sum'] > data['neg_sum'],'pos','neg'  )
-
-# data['sentiment_status'] = np.where(data['pos_count'] > data['neg_count'] , 'P', 'N')
 
 # 'P' if data['pos_count'] > data['neg_count'] else 'N'
 

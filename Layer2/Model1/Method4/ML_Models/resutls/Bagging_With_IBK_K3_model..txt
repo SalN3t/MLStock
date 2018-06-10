@@ -1,0 +1,42 @@
+=== Run information ===
+
+Scheme:       weka.classifiers.meta.Bagging -P 100 -S 1 -num-slots 1 -I 10 -W weka.classifiers.lazy.IBk -- -K 3 -W 0 -A "weka.core.neighboursearch.LinearNNSearch -A \"weka.core.EuclideanDistance -R first-last\""
+Relation:     Method4_testSet_dataset
+Instances:    33416
+Attributes:   340
+              [list of attributes omitted]
+Test mode:    10-fold cross-validation
+
+=== Classifier model (full training set) ===
+
+Bagging with 10 iterations and base learner
+
+weka.classifiers.lazy.IBk -K 3 -W 0 -A "weka.core.neighboursearch.LinearNNSearch -A \"weka.core.EuclideanDistance -R first-last\""
+
+Time taken to build model: 0.17 seconds
+
+=== Stratified cross-validation ===
+=== Summary ===
+
+Correctly Classified Instances       19287               57.7179 %
+Incorrectly Classified Instances     14129               42.2821 %
+Kappa statistic                          0.1474
+Mean absolute error                      0.4468
+Root mean squared error                  0.5179
+Relative absolute error                 89.8962 %
+Root relative squared error            103.8893 %
+Total Number of Instances            33416     
+
+=== Detailed Accuracy By Class ===
+
+                 TP Rate  FP Rate  Precision  Recall   F-Measure  MCC      ROC Area  PRC Area  Class
+                 0.620    0.473    0.605      0.620    0.612      0.147    0.609     0.646     RAISE
+                 0.527    0.380    0.543      0.527    0.535      0.147    0.609     0.557     FALL
+Weighted Avg.    0.577    0.430    0.576      0.577    0.577      0.147    0.609     0.605     
+
+=== Confusion Matrix ===
+
+     a     b   <-- classified as
+ 11166  6834 |     a = RAISE
+  7295  8121 |     b = FALL
+
