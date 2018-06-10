@@ -1,0 +1,7 @@
+{
+    "words": ["offer", "deduct", "spinonthursdays", "boomfolio", "djkerosene", "rockstarz", "hutzdon", "lasvegas", "11bn", "transplant", "digi", "compassionateuse", "compassionateusereform", "warrant"],
+    "hypernms": ["digit", "agent", "relation", "measure", "electromagnetic_unit", "artificial_language", "direction", "abstraction", "living_thing", "physical_entity", "signal", "matter", "mass_uni", "metric_weight_unit", "property"],
+    "settings": {
+        "stem_words": true
+    }
+}
